@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'screens/login_page.dart';
 import 'screens/home_page.dart';
 import 'screens/quiz_page.dart';
 import 'screens/settings_page.dart';
@@ -14,16 +15,17 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
+      debugShowCheckedModeBanner: false, // biar nggak ada banner debug
       title: 'Education App',
       theme: ThemeData(
         primarySwatch: Colors.indigo,
         scaffoldBackgroundColor: Colors.white,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      // langsung ke HomePage
-      home: HomePage(),
+      // Halaman pertama saat aplikasi dibuka
+      initialRoute: '/login',
       routes: {
+        '/login': (context) => LoginPage(),
         '/home': (context) => HomePage(),
         '/quiz': (context) => QuizPage(),
         '/settings': (context) => SettingsPage(),
