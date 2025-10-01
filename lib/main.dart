@@ -15,14 +15,20 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false, // biar nggak ada banner debug
+      debugShowCheckedModeBanner: false,
       title: 'Education App',
       theme: ThemeData(
         primarySwatch: Colors.indigo,
-        scaffoldBackgroundColor: Colors.white,
+        scaffoldBackgroundColor: Color(0xFFF5F7FA), // Background abu-abu terang
         visualDensity: VisualDensity.adaptivePlatformDensity,
+        // Tambahan untuk konsistensi UI
+        appBarTheme: AppBarTheme(
+          elevation: 0,
+          centerTitle: true,
+          backgroundColor: Color(0xFF667eea),
+          foregroundColor: Colors.white,
+        ),
       ),
-      // Halaman pertama saat aplikasi dibuka
       initialRoute: '/login',
       routes: {
         '/login': (context) => LoginPage(),

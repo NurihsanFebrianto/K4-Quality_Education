@@ -21,6 +21,7 @@ class _SettingsPageState extends State<SettingsPage> {
         foregroundColor: Colors.white,
         elevation: 0,
         centerTitle: true,
+        automaticallyImplyLeading: false, // Menghilangkan tombol back
       ),
       body: ListView(
         padding: EdgeInsets.all(20),
@@ -134,13 +135,13 @@ class _SettingsPageState extends State<SettingsPage> {
           currentIndex: 2,
           onTap: (index) {
             if (index == 0) {
-              Navigator.pop(context);
+              // Navigasi ke Beranda
+              Navigator.pushReplacementNamed(context, '/beranda');
             } else if (index == 1) {
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (context) => KuisPage()),
-              );
+              // Navigasi ke Kuis
+              Navigator.pushReplacementNamed(context, '/kuis');
             }
+            // index 2 adalah halaman saat ini (Pengaturan), jadi tidak perlu navigasi
           },
           type: BottomNavigationBarType.fixed,
           selectedItemColor: Color(0xFF667eea),
@@ -317,12 +318,12 @@ class _SettingsPageState extends State<SettingsPage> {
               ),
               TextButton(
                 onPressed: () {
-                  Navigator.pop(context);
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text("Berhasil keluar"),
-                      behavior: SnackBarBehavior.floating,
-                    ),
+                  Navigator.pop(context); // Tutup dialog
+                  // Navigasi ke halaman login dan hapus semua route sebelumnya
+                  Navigator.pushNamedAndRemoveUntil(
+                    context,
+                    '/login',
+                    (route) => false,
                   );
                 },
                 child: Text("Keluar", style: TextStyle(color: Colors.red)),
