@@ -1,6 +1,6 @@
 import 'package:backend/provider/auth_provider.dart';
 import 'package:flutter/material.dart';
-import 'course_page.dart';
+import 'home_page.dart'; // ✅ arahkan ke HomePage setelah login
 import 'signup_page.dart';
 
 class LoginPage extends StatefulWidget {
@@ -27,7 +27,7 @@ class _LoginPageState extends State<LoginPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const SizedBox(height: 60),
-                // Logo atau Icon
+                // Logo
                 Center(
                   child: Container(
                     width: 80,
@@ -79,18 +79,6 @@ class _LoginPageState extends State<LoginPage> {
                     prefixIcon: const Icon(Icons.email_outlined),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
-                      borderSide: BorderSide(color: Colors.grey.shade300),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(12),
-                      borderSide: BorderSide(color: Colors.grey.shade300),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(12),
-                      borderSide: const BorderSide(
-                        color: Colors.blue,
-                        width: 2,
-                      ),
                     ),
                     filled: true,
                     fillColor: Colors.grey.shade50,
@@ -118,38 +106,9 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
-                      borderSide: BorderSide(color: Colors.grey.shade300),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(12),
-                      borderSide: BorderSide(color: Colors.grey.shade300),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(12),
-                      borderSide: const BorderSide(
-                        color: Colors.blue,
-                        width: 2,
-                      ),
                     ),
                     filled: true,
                     fillColor: Colors.grey.shade50,
-                  ),
-                ),
-                const SizedBox(height: 12),
-                // Forgot Password
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: TextButton(
-                    onPressed: () {
-                      // Implement forgot password
-                    },
-                    child: const Text(
-                      'Lupa Password?',
-                      style: TextStyle(
-                        color: Colors.blue,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
                   ),
                 ),
                 const SizedBox(height: 24),
@@ -162,11 +121,9 @@ class _LoginPageState extends State<LoginPage> {
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.blue.shade600,
                       foregroundColor: Colors.white,
-                      elevation: 0,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),
                       ),
-                      disabledBackgroundColor: Colors.grey.shade300,
                     ),
                     child:
                         _isLoading
@@ -186,24 +143,6 @@ class _LoginPageState extends State<LoginPage> {
                               ),
                             ),
                   ),
-                ),
-                const SizedBox(height: 24),
-                // Divider
-                Row(
-                  children: [
-                    Expanded(child: Divider(color: Colors.grey.shade300)),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
-                      child: Text(
-                        'atau',
-                        style: TextStyle(
-                          color: Colors.grey.shade600,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ),
-                    Expanded(child: Divider(color: Colors.grey.shade300)),
-                  ],
                 ),
                 const SizedBox(height: 24),
                 // Sign Up Button
@@ -243,16 +182,9 @@ class _LoginPageState extends State<LoginPage> {
 
   Future<void> _handleLogin() async {
     if (_email.text.isEmpty || _password.text.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: const Text('Email dan password harus diisi'),
-          backgroundColor: Colors.orange.shade700,
-          behavior: SnackBarBehavior.floating,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
-          ),
-        ),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text('Email dan password harus diisi')));
       return;
     }
 
@@ -263,20 +195,14 @@ class _LoginPageState extends State<LoginPage> {
     setState(() => _isLoading = false);
 
     if (success) {
+      // ✅ arahkan langsung ke HomePage
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (_) => CoursePage()),
+        MaterialPageRoute(builder: (_) => HomePage()),
       );
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: const Text('Login gagal. Periksa email dan password Anda'),
-          backgroundColor: Colors.red.shade700,
-          behavior: SnackBarBehavior.floating,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
-          ),
-        ),
+        SnackBar(content: Text('Login gagal. Periksa email & password Anda')),
       );
     }
   }
